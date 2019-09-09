@@ -1,3 +1,9 @@
 body{
   padding:20px;
 }
+
+form{
+  margin-bottom:50px;
+  padding:20px;
+  border:1px solid black;
+}
