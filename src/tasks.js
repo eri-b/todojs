@@ -1,4 +1,4 @@
-import { projects } from './project'
+
 
 const tasks = document.querySelector('.tasks')
 

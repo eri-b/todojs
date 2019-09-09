@@ -1,5 +1,5 @@
 import Item from './item'
-import { projects, Project } from './project'
+import { Project } from './project'
 import populate from './tasks'
 
 const updateTodoForm = (name) => {
@@ -11,7 +11,10 @@ const updateTodoForm = (name) => {
 
 class Ui {
   static listeners () {
+
+    //localStorage.setItem("projects", JSON.stringify([]));
     const def = new Project('Default')
+
     document.querySelector('#new-item').addEventListener('submit', (e) => {
       e.preventDefault()
       const title = document.querySelector('#title').value
