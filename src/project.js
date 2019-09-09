@@ -5,14 +5,13 @@ class Project {
   }
 
   logStuff () {
-    console.log(`${this.title}`)
+    console.log(this.title)
     console.log(this.members)
   }
 
-  addItem(item){
+  addItem (item) {
     this.members.push(item)
   }
-
 }
 
 export default Project
