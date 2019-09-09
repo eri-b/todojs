@@ -1,16 +1,16 @@
 import Item from './item'
-import Project from './project'
+import { projects, Project } from './project'
+import populate from './tasks'
 
 const updateTodoForm = (name) => {
   const projectSelector = document.querySelector('#projects')
-  const option = document.createElement("option");
-  option.text = name;
-  projectSelector.add(option);
+  const option = document.createElement('option')
+  option.text = name
+  projectSelector.add(option)
 }
 
 class Ui {
-
-  static listeners(){
+  static listeners () {
     const def = new Project('Default')
     document.querySelector('#new-item').addEventListener('submit', (e) => {
       e.preventDefault()
@@ -31,10 +31,11 @@ class Ui {
       const projTitle = document.querySelector('#proj-title').value
       const proj = new Project(projTitle)
       updateTodoForm(proj.title)
+      populate()
       console.log(proj)
+      console.log(projects)
     })
   }
-
 }
 
 export default Ui

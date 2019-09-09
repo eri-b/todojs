@@ -1,7 +1,10 @@
+const projects = []
+
 class Project {
   constructor (title) {
     this.title = title
     this.members = []
+    projects.push(title)
   }
 
   logStuff () {
@@ -14,4 +17,4 @@ class Project {
   }
 }
 
-export default Project
+export { projects, Project }
