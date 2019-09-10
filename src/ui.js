@@ -13,11 +13,13 @@ const updateTodoForm = () => {
     option.text = e
     projectSelector.add(option)
   }
+  hideDetails()
 }
 
 class Ui {
   static listeners () {
     const def = new Project('Default')
+    def.addToStorage()
     updateTodoForm()
     document.querySelector('#new-item').addEventListener('submit', (e) => {
       e.preventDefault()
@@ -38,6 +40,7 @@ class Ui {
       e.preventDefault()
       const projTitle = document.querySelector('#proj-title').value
       const proj = new Project(projTitle)
+      proj.addToStorage()
       updateTodoForm()
       Ui.display()
     })
@@ -65,7 +68,6 @@ class Ui {
         properties.classList.add('item')
         const title = document.createElement('p')
         title.innerHTML = prop[0]
-        // add div ctn for details
         const desc = document.createElement('p')
         desc.innerHTML = prop[1]
         const due = document.createElement('p')
@@ -73,19 +75,31 @@ class Ui {
         const pri = document.createElement('p')
         pri.innerHTML = prop[3]
 
+        const descCtn = document.createElement('div')
+        descCtn.classList.add('details')
+
         properties.appendChild(title)
-        properties.appendChild(desc)
-        properties.appendChild(due)
-        properties.appendChild(pri)
+        properties.appendChild(descCtn)
+        descCtn.appendChild(desc)
+        descCtn.appendChild(due)
+        descCtn.appendChild(pri)
 
         ctn.appendChild(properties)
       })
 
       lists.appendChild(ctn)
-
     })
-
   }
+}
+
+const hideDetails = () => {
+  const items = document.querySelectorAll('.item')
+  items.forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault()
+      item.classList.toggle('hidden')
+    })
+  })
 }
 
 export default Ui
