@@ -18,7 +18,6 @@ const updateTodoForm = () => {
 class Ui {
   static listeners () {
     const def = new Project('Default')
-    //def.addToStorage()
     updateTodoForm()
     document.querySelector('#new-item').addEventListener('submit', (e) => {
       e.preventDefault()
@@ -39,7 +38,6 @@ class Ui {
       e.preventDefault()
       const projTitle = document.querySelector('#proj-title').value
       const proj = new Project(projTitle)
-      //proj.addToStorage()
       updateTodoForm()
       Ui.display()
     })
@@ -61,10 +59,11 @@ class Ui {
       ctn.appendChild(projTitle)
 
       const props = JSON.parse(localStorage.getItem(proj))
-      //debugger
       props.forEach(prop => {
+        const delBtn = document.createElement('button')
+        delBtn.classList.add('delete')
         const properties = document.createElement('div')
-        properties.classList.add('item')
+        properties.classList.add('item', 'notification', 'is-danger')
         const title = document.createElement('p')
         title.innerHTML = prop[0]
         const desc = document.createElement('p')
@@ -77,13 +76,18 @@ class Ui {
         const descCtn = document.createElement('div')
         descCtn.classList.add('details')
 
+        properties.appendChild(delBtn)
         properties.appendChild(title)
         properties.appendChild(descCtn)
         descCtn.appendChild(desc)
         descCtn.appendChild(due)
         descCtn.appendChild(pri)
-
         ctn.appendChild(properties)
+
+        delBtn.addEventListener('click', () => {
+          console.log(prop)
+          localStorage.removeItem(JSON.stringify(prop))
+        })
       })
 
       lists.appendChild(ctn)

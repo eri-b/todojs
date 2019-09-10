@@ -17,10 +17,6 @@ class Project {
     localStorage.setItem('projects', JSON.stringify(current))
     localStorage.setItem(value, JSON.stringify([]))
   }
-
-  logStuff () {
-    console.log(this.title)
-  }
 }
 
 export default Project
