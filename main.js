@@ -94,7 +94,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _item__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./item */ \"./src/item.js\");\n/* harmony import */ var _project__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./project */ \"./src/project.js\");\n/* harmony import */ var _ui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ui */ \"./src/ui.js\");\n\n\n\n\n_ui__WEBPACK_IMPORTED_MODULE_2__[\"default\"].listeners()\n\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ui */ \"./src/ui.js\");\n\r\n\r\n_ui__WEBPACK_IMPORTED_MODULE_0__[\"default\"].listeners()\r\n\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
@@ -106,7 +106,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ite
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nclass Item {\n  constructor (title, description, dueDate, priority, project) {\n    this.title = title\n    this.description = description\n    this.dueDate = dueDate\n    this.priority = priority\n    this.project = project\n  }\n\n  logStuff () {\n    console.log(`${this.title}, ${this.description}, ${this.dueDate}, ${this.priority}`)\n  }\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Item);\n\n\n//# sourceURL=webpack:///./src/item.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nclass Item {\r\n  constructor (title, description, dueDate, priority, project) {\r\n    this.title = title\r\n    this.description = description\r\n    this.dueDate = dueDate\r\n    this.priority = priority\r\n    this.project = project\r\n  }\r\n\r\n  logStuff () {\r\n    console.log(`${this.title}, ${this.description}, ${this.dueDate}, ${this.priority}`)\r\n  }\r\n}\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (Item);\r\n\n\n//# sourceURL=webpack:///./src/item.js?");
 
 /***/ }),
 
@@ -114,23 +114,11 @@ eval("__webpack_require__.r(__webpack_exports__);\nclass Item {\n  constructor (
 /*!************************!*\
   !*** ./src/project.js ***!
   \************************/
-/*! exports provided: Project */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"Project\", function() { return Project; });\n\nclass Project {\n  constructor (title) {\n    this.title = title\n    this.members = []\n  }\n\n  get title() {\n    return this._title;\n  }\n\n  set title(value) {\n    if (localStorage.getItem(value)) {\n      return;\n    }\n    this._title = value;\n    const current = JSON.parse(localStorage.getItem(\"projects\")) || [];\n    current.push(value)\n    localStorage.setItem(\"projects\", JSON.stringify(current));\n    localStorage.setItem(value, JSON.stringify([]));\n  }\n\n  logStuff () {\n    console.log(this.title)\n    console.log(this.members)\n  }\n\n  addItem (item) {\n    this.members.push(item)\n  }\n}\n\n\n\n\n//# sourceURL=webpack:///./src/project.js?");
-
-/***/ }),
-
-/***/ "./src/tasks.js":
-/*!**********************!*\
-  !*** ./src/tasks.js ***!
-  \**********************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n\n\nconst tasks = document.querySelector('.tasks')\n\nconst populate = () => {\n  tasks.childNodes.forEach(element => {\n    tasks.removeChild(element)\n  })\n\n  for (let index = 0; index < projects.length; index++) {\n    const e = projects[index]\n    const j = document.createElement('DIV')\n    const p = document.createElement('H2')\n\n    p.innerHTML = e\n\n    j.appendChild(p)\n    tasks.appendChild(j)\n  }\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (populate);\n\n\n//# sourceURL=webpack:///./src/tasks.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n\r\nclass Project {\r\n  constructor (title) {\r\n    this.title = title\r\n    this.members = []\r\n  }\r\n\r\n  get title () {\r\n    return this._title\r\n  }\r\n\r\n  set title (value) {\r\n    if (localStorage.getItem(value)) {\r\n      return\r\n    }\r\n    this._title = value\r\n    const current = JSON.parse(localStorage.getItem('projects')) || []\r\n    current.push(value)\r\n    localStorage.setItem('projects', JSON.stringify(current))\r\n    localStorage.setItem(value, JSON.stringify([]))\r\n  }\r\n\r\n  logStuff () {\r\n    console.log(this.title)\r\n    console.log(this.members)\r\n  }\r\n\r\n  addItem (item) {\r\n    this.members.push(item)\r\n  }\r\n}\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (Project);\r\n\n\n//# sourceURL=webpack:///./src/project.js?");
 
 /***/ }),
 
@@ -142,7 +130,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n\n\nconst tasks = document.qu
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _item__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./item */ \"./src/item.js\");\n/* harmony import */ var _project__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./project */ \"./src/project.js\");\n/* harmony import */ var _tasks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tasks */ \"./src/tasks.js\");\n\n\n\n\nconst updateTodoForm = (name) => {\n  const projectSelector = document.querySelector('#projects')\n  const option = document.createElement('option')\n  option.text = name\n  projectSelector.add(option)\n}\n\nclass Ui {\n  static listeners () {\n\n    //localStorage.setItem(\"projects\", JSON.stringify([]));\n    const def = new _project__WEBPACK_IMPORTED_MODULE_1__[\"Project\"]('Default')\n\n    document.querySelector('#new-item').addEventListener('submit', (e) => {\n      e.preventDefault()\n      const title = document.querySelector('#title').value\n      const description = document.querySelector('#description').value\n      const dueDate = document.querySelector('#due-date').value\n      const priority = document.querySelector('#priority').value\n      const project = document.querySelector('#projects').value\n      const item = new _item__WEBPACK_IMPORTED_MODULE_0__[\"default\"](title, description, dueDate, priority, project)\n      def.addItem(item)\n      document.querySelector('#new-item').reset()\n      document.querySelector('#title').focus()\n      console.log(item)\n    })\n\n    document.querySelector('#new-project').addEventListener('submit', (e) => {\n      e.preventDefault()\n      const projTitle = document.querySelector('#proj-title').value\n      const proj = new _project__WEBPACK_IMPORTED_MODULE_1__[\"Project\"](projTitle)\n      updateTodoForm(proj.title)\n      Object(_tasks__WEBPACK_IMPORTED_MODULE_2__[\"default\"])()\n      console.log(proj)\n      console.log(projects)\n    })\n  }\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Ui);\n\n\n//# sourceURL=webpack:///./src/ui.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _item__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./item */ \"./src/item.js\");\n/* harmony import */ var _project__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./project */ \"./src/project.js\");\n\r\n\r\n\r\nconst updateTodoForm = () => {\r\n  const projectSelector = document.querySelector('#projects')\r\n  const projs = JSON.parse(localStorage.getItem('projects'))\r\n  while (projectSelector.firstChild) {\r\n    projectSelector.removeChild(projectSelector.firstChild)\r\n  }\r\n  for (let i = 0; i < projs.length; i++) {\r\n    const e = projs[i]\r\n    const option = document.createElement('option')\r\n    option.text = e\r\n    projectSelector.add(option)\r\n  }\r\n}\r\n\r\nclass Ui {\r\n  static listeners () {\r\n    const def = new _project__WEBPACK_IMPORTED_MODULE_1__[\"default\"]('Default')\r\n    updateTodoForm()\r\n    document.querySelector('#new-item').addEventListener('submit', (e) => {\r\n      e.preventDefault()\r\n      const title = document.querySelector('#title').value\r\n      const description = document.querySelector('#description').value\r\n      const dueDate = document.querySelector('#due-date').value\r\n      const priority = document.querySelector('#priority').value\r\n      const project = document.querySelector('#projects').value\r\n      const item = new _item__WEBPACK_IMPORTED_MODULE_0__[\"default\"](title, description, dueDate, priority, project)\r\n      def.addItem(item)\r\n      document.querySelector('#new-item').reset()\r\n      document.querySelector('#title').focus()\r\n      console.log(item)\r\n    })\r\n\r\n    document.querySelector('#new-project').addEventListener('submit', (e) => {\r\n      e.preventDefault()\r\n      const projTitle = document.querySelector('#proj-title').value\r\n      const proj = new _project__WEBPACK_IMPORTED_MODULE_1__[\"default\"](projTitle)\r\n      updateTodoForm(proj.title)\r\n      console.log(proj)\r\n    })\r\n  }\r\n}\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (Ui);\r\n\n\n//# sourceURL=webpack:///./src/ui.js?");
 
 /***/ })
 
