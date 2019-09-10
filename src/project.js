@@ -5,19 +5,19 @@ class Project {
     this.members = []
   }
 
-  get title() {
-    return this._title;
+  get title () {
+    return this._title
   }
 
-  set title(value) {
+  set title (value) {
     if (localStorage.getItem(value)) {
-      return;
+      return
     }
-    this._title = value;
-    const current = JSON.parse(localStorage.getItem("projects")) || [];
+    this._title = value
+    const current = JSON.parse(localStorage.getItem('projects')) || []
     current.push(value)
-    localStorage.setItem("projects", JSON.stringify(current));
-    localStorage.setItem(value, JSON.stringify([]));
+    localStorage.setItem('projects', JSON.stringify(current))
+    localStorage.setItem(value, JSON.stringify([]))
   }
 
   logStuff () {
@@ -30,4 +30,4 @@ class Project {
   }
 }
 
-export { Project }
+export default Project

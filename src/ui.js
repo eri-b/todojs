@@ -1,20 +1,24 @@
 import Item from './item'
-import { Project } from './project'
-import populate from './tasks'
+import Project from './project'
 
-const updateTodoForm = (name) => {
+const updateTodoForm = () => {
   const projectSelector = document.querySelector('#projects')
-  const option = document.createElement('option')
-  option.text = name
-  projectSelector.add(option)
+  const projs = JSON.parse(localStorage.getItem('projects'))
+  while (projectSelector.firstChild) {
+    projectSelector.removeChild(projectSelector.firstChild)
+  }
+  for (let i = 0; i < projs.length; i++) {
+    const e = projs[i]
+    const option = document.createElement('option')
+    option.text = e
+    projectSelector.add(option)
+  }
 }
 
 class Ui {
   static listeners () {
-
-    //localStorage.setItem("projects", JSON.stringify([]));
     const def = new Project('Default')
-
+    updateTodoForm()
     document.querySelector('#new-item').addEventListener('submit', (e) => {
       e.preventDefault()
       const title = document.querySelector('#title').value
@@ -34,9 +38,7 @@ class Ui {
       const projTitle = document.querySelector('#proj-title').value
       const proj = new Project(projTitle)
       updateTodoForm(proj.title)
-      populate()
       console.log(proj)
-      console.log(projects)
     })
   }
 }
