@@ -46,6 +46,7 @@ class Ui {
       }
       updateTodoForm()
       Ui.display()
+      document.querySelector('#new-project').reset()
     })
   }
 
@@ -91,13 +92,10 @@ class Ui {
         ctn.appendChild(properties)
 
         delBtn.addEventListener('click', () => {
-          // pull out and parse
-          // remove array element based on index
-          // repackage (stringify) and reset
-          console.log(localStorage.getItem(list))
-          console.log(index)
-          //console.log(localStorage.getItem(items[0]))
-          //localStorage.removeItem(list[index])
+          const thing = JSON.parse(localStorage.getItem(list))
+          thing.splice(index, 1)
+          localStorage.setItem(list, JSON.stringify(thing))
+          Ui.display()
         })
       })
 
