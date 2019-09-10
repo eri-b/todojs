@@ -15,8 +15,6 @@ const updateTodoForm = () => {
   }
 }
 
-
-
 class Ui {
   static listeners () {
     const def = new Project('Default')
@@ -29,6 +27,7 @@ class Ui {
       const priority = document.querySelector('#priority').value
       const project = document.querySelector('#projects').value
       const item = new Item(title, description, dueDate, priority, project)
+
       item.addToProject()
       Ui.display()
       document.querySelector('#new-item').reset()
@@ -44,16 +43,27 @@ class Ui {
     })
   }
 
-  static display(){
+  static display () {
     const lists = document.querySelector('#lists')
-    //clear
-    //loop through localStorage(Projects)
+    // clear
+    while (lists.firstChild) {
+      lists.removeChild(lists.firstChild)
+    }
+    // loop through localStorage(Projects)
     // set up a div with the project name
+    const projs = JSON.parse(localStorage.getItem('projects'))
+    projs.forEach(proj => {
+      const a = document.createElement('h2')
+      const b = document.createElement('h3')
+      a.innerHTML = proj
+      if (localStorage) {
+      }
+      lists.appendChild(a)
+    })
     // if we find a key in local storage with that project name, loop through its members and display info
 
-
     const item = document.createElement('div')
-    item.innerHTML = "hello world"
+    item.innerHTML = 'hello world'
     lists.appendChild(item)
   }
 }

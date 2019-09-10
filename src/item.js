@@ -11,12 +11,13 @@ class Item {
     console.log(`${this.title}, ${this.description}, ${this.dueDate}, ${this.priority}`)
   }
 
-  addToProject(){
+  addToProject () {
     const current = JSON.parse(localStorage.getItem(this.project))
     current.push([this.title, this.description, this.dueDate, this.priority])
     localStorage.setItem(this.project, JSON.stringify(current))
+    console.log(this.project)
+    console.log(current)
   }
 }
-
 
 export default Item
