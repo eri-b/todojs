@@ -8,15 +8,22 @@ class Project {
   }
 
   set title (value) {
-    if (localStorage.getItem(value)) {
-      return
-    }
     this._title = value
+  }
+
+  addToStorage () {
     const current = JSON.parse(localStorage.getItem('projects')) || []
-    current.push(value)
+    current.push(this._title)
     localStorage.setItem('projects', JSON.stringify(current))
-    localStorage.setItem(value, JSON.stringify([]))
+    localStorage.setItem(this._title, JSON.stringify([]))
   }
 }
 
-export default Project
+const validate = (val) => {
+  if (localStorage.getItem(val)) {
+    return false
+  }
+  return true
+}
+
+export { Project, validate }

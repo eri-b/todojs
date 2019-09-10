@@ -1,5 +1,5 @@
 import Item from './item'
-import Project from './project'
+import { Project, validate } from './project'
 
 const updateTodoForm = () => {
   const projectSelector = document.querySelector('#projects')
@@ -17,7 +17,10 @@ const updateTodoForm = () => {
 
 class Ui {
   static listeners () {
-    const def = new Project('Default')
+    if (validate('Default')) {
+      const def = new Project('Default')
+      def.addToStorage()
+    }
     updateTodoForm()
     document.querySelector('#new-item').addEventListener('submit', (e) => {
       e.preventDefault()
@@ -37,41 +40,44 @@ class Ui {
     document.querySelector('#new-project').addEventListener('submit', (e) => {
       e.preventDefault()
       const projTitle = document.querySelector('#proj-title').value
-      const proj = new Project(projTitle)
+      if (validate(projTitle)) {
+        const proj = new Project(projTitle)
+        proj.addToStorage()
+      }
       updateTodoForm()
       Ui.display()
     })
   }
 
   static display () {
-    const lists = document.querySelector('#lists')
+    const listsContent = document.querySelector('#lists')
 
-    while (lists.firstChild) {
-      lists.removeChild(lists.firstChild)
+    while (listsContent.firstChild) {
+      listsContent.removeChild(listsContent.firstChild)
     }
 
-    const projs = JSON.parse(localStorage.getItem('projects'))
-    projs.forEach(proj => {
+    const lists = JSON.parse(localStorage.getItem('projects'))
+    lists.forEach(list => {
       const ctn = document.createElement('div')
       ctn.classList.add('list')
-      const projTitle = document.createElement('h2')
-      projTitle.innerHTML = proj
-      ctn.appendChild(projTitle)
+      const itemTitle = document.createElement('h2')
+      itemTitle.innerHTML = list
+      ctn.appendChild(itemTitle)
 
-      const props = JSON.parse(localStorage.getItem(proj))
-      props.forEach(prop => {
+      const items = JSON.parse(localStorage.getItem(list))
+      items.forEach((item, index) => {
         const delBtn = document.createElement('button')
         delBtn.classList.add('delete')
         const properties = document.createElement('div')
         properties.classList.add('item', 'notification', 'is-danger')
         const title = document.createElement('p')
-        title.innerHTML = prop[0]
+        title.innerHTML = item[0]
         const desc = document.createElement('p')
-        desc.innerHTML = prop[1]
+        desc.innerHTML = item[1]
         const due = document.createElement('p')
-        due.innerHTML = prop[2]
+        due.innerHTML = item[2]
         const pri = document.createElement('p')
-        pri.innerHTML = prop[3]
+        pri.innerHTML = item[3]
 
         const descCtn = document.createElement('div')
         descCtn.classList.add('details')
@@ -85,12 +91,17 @@ class Ui {
         ctn.appendChild(properties)
 
         delBtn.addEventListener('click', () => {
-          console.log(prop)
-          localStorage.removeItem(JSON.stringify(prop))
+          // pull out and parse
+          // remove array element based on index
+          // repackage (stringify) and reset
+          console.log(localStorage.getItem(list))
+          console.log(index)
+          //console.log(localStorage.getItem(items[0]))
+          //localStorage.removeItem(list[index])
         })
       })
 
-      lists.appendChild(ctn)
+      listsContent.appendChild(ctn)
     })
     toggleDetails()
   }
