@@ -45,26 +45,46 @@ class Ui {
 
   static display () {
     const lists = document.querySelector('#lists')
-    // clear
+
     while (lists.firstChild) {
       lists.removeChild(lists.firstChild)
     }
-    // loop through localStorage(Projects)
-    // set up a div with the project name
+
     const projs = JSON.parse(localStorage.getItem('projects'))
     projs.forEach(proj => {
-      const a = document.createElement('h2')
-      const b = document.createElement('h3')
-      a.innerHTML = proj
-      if (localStorage) {
-      }
-      lists.appendChild(a)
-    })
-    // if we find a key in local storage with that project name, loop through its members and display info
+      const ctn = document.createElement('div')
+      ctn.classList.add('list')
+      const projTitle = document.createElement('h2')
+      projTitle.innerHTML = proj
+      ctn.appendChild(projTitle)
 
-    const item = document.createElement('div')
-    item.innerHTML = 'hello world'
-    lists.appendChild(item)
+      const props = JSON.parse(localStorage.getItem(proj))
+
+      props.forEach(prop => {
+        const properties = document.createElement('div')
+        properties.classList.add('item')
+        const title = document.createElement('p')
+        title.innerHTML = prop[0]
+        // add div ctn for details
+        const desc = document.createElement('p')
+        desc.innerHTML = prop[1]
+        const due = document.createElement('p')
+        due.innerHTML = prop[2]
+        const pri = document.createElement('p')
+        pri.innerHTML = prop[3]
+
+        properties.appendChild(title)
+        properties.appendChild(desc)
+        properties.appendChild(due)
+        properties.appendChild(pri)
+
+        ctn.appendChild(properties)
+      })
+
+      lists.appendChild(ctn)
+
+    })
+
   }
 }
 
