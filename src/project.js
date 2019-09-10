@@ -1,8 +1,7 @@
 
 class Project {
-  constructor (title) {
-    this.title = title
-    this.members = []
+  constructor () {
+
   }
 
   get title () {
@@ -26,7 +25,7 @@ class Project {
   }
 
   addItem (item) {
-    this.members.push(item)
+
   }
 }
 
