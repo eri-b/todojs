@@ -13,13 +13,12 @@ const updateTodoForm = () => {
     option.text = e
     projectSelector.add(option)
   }
-  hideDetails()
 }
 
 class Ui {
   static listeners () {
     const def = new Project('Default')
-    def.addToStorage()
+    //def.addToStorage()
     updateTodoForm()
     document.querySelector('#new-item').addEventListener('submit', (e) => {
       e.preventDefault()
@@ -40,7 +39,7 @@ class Ui {
       e.preventDefault()
       const projTitle = document.querySelector('#proj-title').value
       const proj = new Project(projTitle)
-      proj.addToStorage()
+      //proj.addToStorage()
       updateTodoForm()
       Ui.display()
     })
@@ -62,7 +61,7 @@ class Ui {
       ctn.appendChild(projTitle)
 
       const props = JSON.parse(localStorage.getItem(proj))
-
+      //debugger
       props.forEach(prop => {
         const properties = document.createElement('div')
         properties.classList.add('item')
@@ -89,15 +88,17 @@ class Ui {
 
       lists.appendChild(ctn)
     })
+    toggleDetails()
   }
 }
 
-const hideDetails = () => {
+const toggleDetails = () => {
   const items = document.querySelectorAll('.item')
+  console.log(items)
   items.forEach(item => {
     item.addEventListener('click', e => {
       e.preventDefault()
-      item.classList.toggle('hidden')
+      item.lastChild.classList.toggle('hidden')
     })
   })
 }
