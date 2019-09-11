@@ -70,7 +70,7 @@ class Ui {
         const delBtn = document.createElement('button')
         delBtn.classList.add('delete')
         const properties = document.createElement('div')
-        properties.classList.add('item', 'notification', 'is-danger')
+        properties.classList.add('item', 'notification')
         const title = document.createElement('p')
         title.innerHTML = item[0]
         const desc = document.createElement('p')
@@ -89,6 +89,44 @@ class Ui {
         descCtn.appendChild(desc)
         descCtn.appendChild(due)
         descCtn.appendChild(pri)
+
+        if (item[4] === 'completed') {
+          const completed = document.createElement('p')
+          completed.innerHTML = 'Completed!'
+          descCtn.appendChild(completed)
+          properties.classList.add('has-text-grey')
+        } else {
+          const edit = document.createElement('button')
+          edit.innerHTML = 'Update description'
+          const complete = document.createElement('button')
+          complete.innerHTML = 'Complete'
+          const priChange = document.createElement('button')
+          priChange.innerHTML = 'Change Priority'
+          descCtn.appendChild(edit)
+          descCtn.appendChild(complete)
+          descCtn.appendChild(priChange)
+          complete.addEventListener('click', () => {
+            const thing = JSON.parse(localStorage.getItem(list))
+            thing[index].push('completed')
+            localStorage.setItem(list, JSON.stringify(thing))
+            Ui.display()
+          })
+          edit.addEventListener('click', () => {
+            const thing = JSON.parse(localStorage.getItem(list))
+            console.log(thing[index])
+            //text input to update 2nd item in array
+            localStorage.setItem(list, JSON.stringify(thing))
+            Ui.display()
+          })
+          priChange.addEventListener('click', () => {
+            const thing = JSON.parse(localStorage.getItem(list))
+            console.log(thing[index])
+            //toggle priority
+            localStorage.setItem(list, JSON.stringify(thing))
+            Ui.display()
+          })
+        }
+
         ctn.appendChild(properties)
 
         delBtn.addEventListener('click', () => {
@@ -107,7 +145,6 @@ class Ui {
 
 const toggleDetails = () => {
   const items = document.querySelectorAll('.item')
-  console.log(items)
   items.forEach(item => {
     item.addEventListener('click', e => {
       e.preventDefault()
