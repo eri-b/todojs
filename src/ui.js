@@ -83,6 +83,11 @@ class Ui {
         const descCtn = document.createElement('div')
         descCtn.classList.add('details')
 
+        title.addEventListener('click', e => {
+          e.preventDefault()
+          properties.lastChild.classList.toggle('hidden')
+        })
+
         properties.appendChild(delBtn)
         properties.appendChild(title)
         properties.appendChild(descCtn)
@@ -112,16 +117,30 @@ class Ui {
             Ui.display()
           })
           edit.addEventListener('click', () => {
-            const thing = JSON.parse(localStorage.getItem(list))
-            console.log(thing[index])
-            //text input to update 2nd item in array
-            localStorage.setItem(list, JSON.stringify(thing))
-            Ui.display()
+            desc.setAttribute('contenteditable', 'true')
+            desc.focus()
+            edit.classList.add('hidden')
+            complete.classList.add('hidden')
+            priChange.classList.add('hidden')
+            const makeEdit = document.createElement('button')
+            makeEdit.innerHTML = 'Edit'
+            descCtn.appendChild(makeEdit)
+            makeEdit.addEventListener('click', () => {
+              const descTxt = document.querySelector('.details p:first-child')
+              const thing = JSON.parse(localStorage.getItem(list))
+              thing[index][1] = descTxt.innerHTML
+              localStorage.setItem(list, JSON.stringify(thing))
+              edit.classList.remove('hidden')
+              complete.classList.remove('hidden')
+              priChange.classList.remove('hidden')
+              desc.setAttribute('contenteditable', 'false')
+              descCtn.removeChild(makeEdit)
+            })
           })
           priChange.addEventListener('click', () => {
             const thing = JSON.parse(localStorage.getItem(list))
             console.log(thing[index])
-            //toggle priority
+            // toggle priority
             localStorage.setItem(list, JSON.stringify(thing))
             Ui.display()
           })
@@ -139,18 +158,18 @@ class Ui {
 
       listsContent.appendChild(ctn)
     })
-    toggleDetails()
+    // toggleDetails()
   }
 }
 
-const toggleDetails = () => {
-  const items = document.querySelectorAll('.item')
-  items.forEach(item => {
-    item.addEventListener('click', e => {
-      e.preventDefault()
-      item.lastChild.classList.toggle('hidden')
-    })
-  })
-}
+// const toggleDetails = () => {
+//   const items = document.querySelectorAll('.item')
+//   items.forEach(item => {
+//     item.addEventListener('click', e => {
+//       e.preventDefault()
+//       item.lastChild.classList.toggle('hidden')
+//     })
+//   })
+// }
 
 export default Ui
