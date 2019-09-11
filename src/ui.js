@@ -62,6 +62,7 @@ class Ui {
       const ctn = document.createElement('div')
       ctn.classList.add('list')
       const itemTitle = document.createElement('h2')
+      itemTitle.classList.add('is-size-4')
       itemTitle.innerHTML = list
       ctn.appendChild(itemTitle)
 
@@ -72,16 +73,17 @@ class Ui {
         const properties = document.createElement('div')
         properties.classList.add('item', 'notification')
         const title = document.createElement('p')
+        title.classList.add('is-size-5')
         title.innerHTML = item[0]
         const desc = document.createElement('p')
         desc.innerHTML = item[1]
         const due = document.createElement('p')
-        due.innerHTML = item[2]
+        due.innerHTML = `Due date: ${item[2]}`
         const pri = document.createElement('p')
-        pri.innerHTML = item[3]
+        pri.innerHTML = `Priority: ${item[3]}`
 
         const descCtn = document.createElement('div')
-        descCtn.classList.add('details')
+        descCtn.classList.add('details', 'hidden')
 
         title.addEventListener('click', e => {
           e.preventDefault()
@@ -95,6 +97,7 @@ class Ui {
         descCtn.appendChild(due)
         descCtn.appendChild(pri)
 
+        // Marking as completed
         if (item[4] === 'completed') {
           const completed = document.createElement('p')
           completed.innerHTML = 'Completed!'
@@ -116,6 +119,8 @@ class Ui {
             localStorage.setItem(list, JSON.stringify(thing))
             Ui.display()
           })
+
+          // Editing Item description
           edit.addEventListener('click', () => {
             desc.setAttribute('contenteditable', 'true')
             desc.focus()
@@ -126,21 +131,22 @@ class Ui {
             makeEdit.innerHTML = 'Edit'
             descCtn.appendChild(makeEdit)
             makeEdit.addEventListener('click', () => {
-              const descTxt = document.querySelector('.details p:first-child')
               const thing = JSON.parse(localStorage.getItem(list))
-              thing[index][1] = descTxt.innerHTML
+              thing[index][1] = desc.innerHTML
               localStorage.setItem(list, JSON.stringify(thing))
               edit.classList.remove('hidden')
               complete.classList.remove('hidden')
               priChange.classList.remove('hidden')
               desc.setAttribute('contenteditable', 'false')
               descCtn.removeChild(makeEdit)
+              Ui.display()
             })
           })
+
+          // Changing Priority
           priChange.addEventListener('click', () => {
             const thing = JSON.parse(localStorage.getItem(list))
-            console.log(thing[index])
-            // toggle priority
+            thing[index][3] = thing[index][3] === 'High' ? 'Low' : 'High'
             localStorage.setItem(list, JSON.stringify(thing))
             Ui.display()
           })
