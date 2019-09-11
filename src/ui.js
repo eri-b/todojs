@@ -71,9 +71,9 @@ class Ui {
         const delBtn = document.createElement('button')
         delBtn.classList.add('delete')
         const properties = document.createElement('div')
-        properties.classList.add('item', 'notification')
+        properties.classList.add('item', 'message', 'is-info')
         const title = document.createElement('p')
-        title.classList.add('is-size-5')
+        title.classList.add('is-size-5', 'message-header')
         title.innerHTML = item[0]
         const desc = document.createElement('p')
         desc.innerHTML = item[1]
@@ -83,14 +83,14 @@ class Ui {
         pri.innerHTML = `Priority: ${item[3]}`
 
         const descCtn = document.createElement('div')
-        descCtn.classList.add('details', 'hidden')
+        descCtn.classList.add('details', 'hidden', 'message-body')
 
         title.addEventListener('click', e => {
           e.preventDefault()
           properties.lastChild.classList.toggle('hidden')
         })
 
-        properties.appendChild(delBtn)
+        title.appendChild(delBtn)
         properties.appendChild(title)
         properties.appendChild(descCtn)
         descCtn.appendChild(desc)
@@ -102,14 +102,18 @@ class Ui {
           const completed = document.createElement('p')
           completed.innerHTML = 'Completed!'
           descCtn.appendChild(completed)
-          properties.classList.add('has-text-grey')
+          properties.classList.remove('is-info')
+          properties.classList.add('has-text-grey', 'is-success')
         } else {
           const edit = document.createElement('button')
           edit.innerHTML = 'Update description'
+          edit.classList.add('button')
           const complete = document.createElement('button')
           complete.innerHTML = 'Complete'
+          complete.classList.add('button')
           const priChange = document.createElement('button')
           priChange.innerHTML = 'Change Priority'
+          priChange.classList.add('button')
           descCtn.appendChild(edit)
           descCtn.appendChild(complete)
           descCtn.appendChild(priChange)
@@ -119,6 +123,15 @@ class Ui {
             localStorage.setItem(list, JSON.stringify(thing))
             Ui.display()
           })
+
+          // Change color to red if High Priority
+          if (pri.innerHTML === 'Priority: High') {
+            properties.classList.remove('is-info')
+            properties.classList.add('is-danger')
+          } else {
+            properties.classList.remove('is-danger')
+            properties.classList.add('is-info')
+          }
 
           // Editing Item description
           edit.addEventListener('click', () => {
@@ -130,6 +143,7 @@ class Ui {
             const makeEdit = document.createElement('button')
             makeEdit.innerHTML = 'Edit'
             descCtn.appendChild(makeEdit)
+            makeEdit.classList.add('button')
             makeEdit.addEventListener('click', () => {
               const thing = JSON.parse(localStorage.getItem(list))
               thing[index][1] = desc.innerHTML
@@ -164,18 +178,7 @@ class Ui {
 
       listsContent.appendChild(ctn)
     })
-    // toggleDetails()
   }
 }
-
-// const toggleDetails = () => {
-//   const items = document.querySelectorAll('.item')
-//   items.forEach(item => {
-//     item.addEventListener('click', e => {
-//       e.preventDefault()
-//       item.lastChild.classList.toggle('hidden')
-//     })
-//   })
-// }
 
 export default Ui
