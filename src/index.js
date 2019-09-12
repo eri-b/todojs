@@ -1,4 +1,5 @@
 import Ui from './ui'
+import listen from './listeners'
 
-Ui.listeners()
+listen()
 Ui.display()

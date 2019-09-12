@@ -1,52 +1,15 @@
-import Item from './item'
-import { Project, validate } from './project'
-
-const updateTodoForm = () => {
-  const projectSelector = document.querySelector('#projects')
-  const projs = JSON.parse(localStorage.getItem('projects'))
-  while (projectSelector.firstChild) {
-    projectSelector.removeChild(projectSelector.firstChild)
-  }
-
-  projs.forEach(proj => {
-    const option = document.createElement('option')
-    option.text = proj
-    projectSelector.add(option)
-  })
-}
-
 const Ui = (() => {
-  const listeners = () => {
-    if (validate('Default')) {
-      const def = new Project('Default')
-      def.addToStorage()
+  const updateProjectDropdown = () => {
+    const projectSelector = document.querySelector('#projects')
+    const projs = JSON.parse(localStorage.getItem('projects'))
+    while (projectSelector.firstChild) {
+      projectSelector.removeChild(projectSelector.firstChild)
     }
-    updateTodoForm()
-    document.querySelector('#new-item').addEventListener('submit', (e) => {
-      e.preventDefault()
-      const title = document.querySelector('#title').value
-      const description = document.querySelector('#description').value
-      const dueDate = document.querySelector('#due-date').value
-      const priority = document.querySelector('#priority').value
-      const project = document.querySelector('#projects').value
-      const item = new Item(title, description, dueDate, priority, project)
 
-      item.addToProject()
-      Ui.display()
-      document.querySelector('#new-item').reset()
-      document.querySelector('#title').focus()
-    })
-
-    document.querySelector('#new-project').addEventListener('submit', (e) => {
-      e.preventDefault()
-      const projTitle = document.querySelector('#proj-title').value
-      if (validate(projTitle)) {
-        const proj = new Project(projTitle)
-        proj.addToStorage()
-      }
-      updateTodoForm()
-      Ui.display()
-      document.querySelector('#new-project').reset()
+    projs.forEach(proj => {
+      const option = document.createElement('option')
+      option.text = proj
+      projectSelector.add(option)
     })
   }
 
@@ -179,7 +142,7 @@ const Ui = (() => {
       listsContent.appendChild(ctn)
     })
   }
-  return { display, listeners }
+  return { display, updateProjectDropdown }
 })()
 
 export default Ui
