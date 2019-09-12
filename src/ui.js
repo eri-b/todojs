@@ -15,8 +15,8 @@ const updateTodoForm = () => {
   })
 }
 
-class Ui {
-  static listeners () {
+const Ui = (() => {
+  const listeners = () => {
     if (validate('Default')) {
       const def = new Project('Default')
       def.addToStorage()
@@ -50,7 +50,7 @@ class Ui {
     })
   }
 
-  static display () {
+  const display = () => {
     const listsContent = document.querySelector('#lists')
 
     while (listsContent.firstChild) {
@@ -179,6 +179,7 @@ class Ui {
       listsContent.appendChild(ctn)
     })
   }
-}
+  return { display, listeners }
+})()
 
 export default Ui
