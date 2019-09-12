@@ -7,12 +7,12 @@ const updateTodoForm = () => {
   while (projectSelector.firstChild) {
     projectSelector.removeChild(projectSelector.firstChild)
   }
-  for (let i = 0; i < projs.length; i++) {
-    const e = projs[i]
+
+  projs.forEach(proj => {
     const option = document.createElement('option')
-    option.text = e
+    option.text = proj
     projectSelector.add(option)
-  }
+  })
 }
 
 class Ui {
