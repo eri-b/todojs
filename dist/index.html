@@ -1,12 +1,73 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Todo</title>
-    <link rel="stylesheet" href="bulma.min.css">
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <div id="content"></div>
-    <script src="main.js"></script>
-  </body>
+
+<head>
+  <title>Todo</title>
+  <link rel="stylesheet" href="bulma.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main>
+    <div>
+
+      <div id="item-form">
+        <form id="new-item" class="box">
+          <h1 class="title">Add new item to project</h1>
+          <div class="field">
+            <label class="label" for="title">Title</label>
+            <input class="input" type="text" name="title" id="title">
+          </div>
+          <div class="field">
+            <label class="label" for="description">Description</label>
+            <input class="input" type="text" name="description" id="description">
+          </div>
+          <div class="field">
+            <label class="label" for="due-date">Due Date</label>
+            <input class="input"  type="date" name="due-date" id="due-date">
+          </div>
+          <div class="field">
+            <label class="label" for="priority">Priority</label>
+            <div class="select">
+              <select name="priority" id="priority">
+                <option value="High">High</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label" for="projects">Projects</label>
+            <div class="select">
+              <select name="projects" id="projects">
+              </select>
+            </div>
+          </div>
+          <div>
+            <input class="button" value="New Todo Item" type="submit">
+          </div>
+        </form>
+      </div>
+
+
+      <form id="new-project" class="box">
+        <h1 class="title">Add new project</h1>
+        <div class="field">
+          <label class="label" for="proj-title">Title</label>
+          <input class="input" type="text" name="proj-title" id="proj-title">
+        </div>
+        <input class="button" value="New Project" type="submit">
+      </form>
+
+</div>
+
+<div>
+  <h1 class="title">Todo Lists</h1>
+  <div id="lists"></div>
+</div>
+
+</main>
+
+<script src="main.js"></script>
+</body>
+
 </html>
