@@ -25,49 +25,43 @@ const itemHandling = (check, container, prop, prio, i, description, lis) => {
       Ui.display()
     })
 
-    const changeColor = (() => {
-      if (prio.innerHTML === 'Priority: High') {
-        prop.classList.remove('is-info')
-        prop.classList.add('is-danger')
-      } else {
-        prop.classList.remove('is-danger')
-        prop.classList.add('is-info')
-      }
-    })()
+    if (prio.innerHTML === 'Priority: High') {
+      prop.classList.remove('is-info')
+      prop.classList.add('is-danger')
+    } else {
+      prop.classList.remove('is-danger')
+      prop.classList.add('is-info')
+    }
 
-    const editDescription = (() => {
-      edit.addEventListener('click', () => {
-        description.setAttribute('contenteditable', 'true')
-        description.focus()
-        edit.classList.add('hidden')
-        complete.classList.add('hidden')
-        priChange.classList.add('hidden')
-        const makeEdit = document.createElement('button')
-        makeEdit.innerHTML = 'Edit'
-        container.appendChild(makeEdit)
-        makeEdit.classList.add('button')
-        makeEdit.addEventListener('click', () => {
-          const thing = JSON.parse(localStorage.getItem(lis))
-          thing[i][1] = description.innerHTML
-          localStorage.setItem(lis, JSON.stringify(thing))
-          edit.classList.remove('hidden')
-          complete.classList.remove('hidden')
-          priChange.classList.remove('hidden')
-          description.setAttribute('contenteditable', 'false')
-          container.removeChild(makeEdit)
-          Ui.display()
-        })
-      })
-    })()
-
-    const changePriority = (() => {
-      priChange.addEventListener('click', () => {
+    edit.addEventListener('click', () => {
+      description.setAttribute('contenteditable', 'true')
+      description.focus()
+      edit.classList.add('hidden')
+      complete.classList.add('hidden')
+      priChange.classList.add('hidden')
+      const makeEdit = document.createElement('button')
+      makeEdit.innerHTML = 'Edit'
+      container.appendChild(makeEdit)
+      makeEdit.classList.add('button')
+      makeEdit.addEventListener('click', () => {
         const thing = JSON.parse(localStorage.getItem(lis))
-        thing[i][3] = thing[i][3] === 'High' ? 'Low' : 'High'
+        thing[i][1] = description.innerHTML
         localStorage.setItem(lis, JSON.stringify(thing))
+        edit.classList.remove('hidden')
+        complete.classList.remove('hidden')
+        priChange.classList.remove('hidden')
+        description.setAttribute('contenteditable', 'false')
+        container.removeChild(makeEdit)
         Ui.display()
       })
-    })()
+    })
+
+    priChange.addEventListener('click', () => {
+      const thing = JSON.parse(localStorage.getItem(lis))
+      thing[i][3] = thing[i][3] === 'High' ? 'Low' : 'High'
+      localStorage.setItem(lis, JSON.stringify(thing))
+      Ui.display()
+    })
   }
 }
 
