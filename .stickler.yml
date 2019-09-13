@@ -1,0 +1,8 @@
+linters:
+  eslint:
+    config: './.eslintrc.js'
+
+files:
+  ignore:
+    - 'dist/*'
+    - '.eslintrc.js'
