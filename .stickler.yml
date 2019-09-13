@@ -1,6 +1,7 @@
 linters:
   eslint:
     config: './.eslintrc.js'
+    ignore-patterns: '!<relative/path/to/.eslintrc.js>'
 
 files:
   ignore:
