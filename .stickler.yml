@@ -1,7 +1,7 @@
 linters:
   eslint:
     config: './.eslintrc.js'
-    ignore-patterns: './.eslintrc.js'
+    ignore-patterns: 'generated/.*'
 
 files:
   ignore:
