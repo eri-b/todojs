@@ -1,3 +1,76 @@
+const itemHandling = (check, container, prop, prio, i, description, lis) => {
+  if (check === 'completed') {
+    const completed = document.createElement('p')
+    completed.innerHTML = 'Completed!'
+    container.appendChild(completed)
+    prop.classList.remove('is-info')
+    prop.classList.add('has-text-grey', 'is-success')
+  } else {
+    const edit = document.createElement('button')
+    edit.innerHTML = 'Update description'
+    edit.classList.add('button')
+    const complete = document.createElement('button')
+    complete.innerHTML = 'Complete'
+    complete.classList.add('button')
+    const priChange = document.createElement('button')
+    priChange.innerHTML = 'Change Priority'
+    priChange.classList.add('button')
+    container.appendChild(edit)
+    container.appendChild(complete)
+    container.appendChild(priChange)
+    complete.addEventListener('click', () => {
+      const thing = JSON.parse(localStorage.getItem(lis))
+      thing[i].push('completed')
+      localStorage.setItem(lis, JSON.stringify(thing))
+      Ui.display()
+    })
+
+    const changeColor = (() => {
+      if (prio.innerHTML === 'Priority: High') {
+        prop.classList.remove('is-info')
+        prop.classList.add('is-danger')
+      } else {
+        prop.classList.remove('is-danger')
+        prop.classList.add('is-info')
+      }
+    })()
+
+    const editDescription = (() => {
+      edit.addEventListener('click', () => {
+        description.setAttribute('contenteditable', 'true')
+        description.focus()
+        edit.classList.add('hidden')
+        complete.classList.add('hidden')
+        priChange.classList.add('hidden')
+        const makeEdit = document.createElement('button')
+        makeEdit.innerHTML = 'Edit'
+        container.appendChild(makeEdit)
+        makeEdit.classList.add('button')
+        makeEdit.addEventListener('click', () => {
+          const thing = JSON.parse(localStorage.getItem(lis))
+          thing[i][1] = description.innerHTML
+          localStorage.setItem(lis, JSON.stringify(thing))
+          edit.classList.remove('hidden')
+          complete.classList.remove('hidden')
+          priChange.classList.remove('hidden')
+          description.setAttribute('contenteditable', 'false')
+          container.removeChild(makeEdit)
+          Ui.display()
+        })
+      })
+    })()
+
+    const changePriority = (() => {
+      priChange.addEventListener('click', () => {
+        const thing = JSON.parse(localStorage.getItem(lis))
+        thing[i][3] = thing[i][3] === 'High' ? 'Low' : 'High'
+        localStorage.setItem(lis, JSON.stringify(thing))
+        Ui.display()
+      })
+    })()
+  }
+}
+
 const Ui = (() => {
   const updateProjectDropdown = () => {
     const projectSelector = document.querySelector('#projects')
@@ -60,74 +133,7 @@ const Ui = (() => {
         descCtn.appendChild(due)
         descCtn.appendChild(pri)
 
-        // Marking as completed
-        if (item[4] === 'completed') {
-          const completed = document.createElement('p')
-          completed.innerHTML = 'Completed!'
-          descCtn.appendChild(completed)
-          properties.classList.remove('is-info')
-          properties.classList.add('has-text-grey', 'is-success')
-        } else {
-          const edit = document.createElement('button')
-          edit.innerHTML = 'Update description'
-          edit.classList.add('button')
-          const complete = document.createElement('button')
-          complete.innerHTML = 'Complete'
-          complete.classList.add('button')
-          const priChange = document.createElement('button')
-          priChange.innerHTML = 'Change Priority'
-          priChange.classList.add('button')
-          descCtn.appendChild(edit)
-          descCtn.appendChild(complete)
-          descCtn.appendChild(priChange)
-          complete.addEventListener('click', () => {
-            const thing = JSON.parse(localStorage.getItem(list))
-            thing[index].push('completed')
-            localStorage.setItem(list, JSON.stringify(thing))
-            Ui.display()
-          })
-
-          // Change color to red if High Priority
-          if (pri.innerHTML === 'Priority: High') {
-            properties.classList.remove('is-info')
-            properties.classList.add('is-danger')
-          } else {
-            properties.classList.remove('is-danger')
-            properties.classList.add('is-info')
-          }
-
-          // Editing Item description
-          edit.addEventListener('click', () => {
-            desc.setAttribute('contenteditable', 'true')
-            desc.focus()
-            edit.classList.add('hidden')
-            complete.classList.add('hidden')
-            priChange.classList.add('hidden')
-            const makeEdit = document.createElement('button')
-            makeEdit.innerHTML = 'Edit'
-            descCtn.appendChild(makeEdit)
-            makeEdit.classList.add('button')
-            makeEdit.addEventListener('click', () => {
-              const thing = JSON.parse(localStorage.getItem(list))
-              thing[index][1] = desc.innerHTML
-              localStorage.setItem(list, JSON.stringify(thing))
-              edit.classList.remove('hidden')
-              complete.classList.remove('hidden')
-              priChange.classList.remove('hidden')
-              desc.setAttribute('contenteditable', 'false')
-              descCtn.removeChild(makeEdit)
-              Ui.display()
-            })
-          })
-
-          // Changing Priority
-          priChange.addEventListener('click', () => {
-            const thing = JSON.parse(localStorage.getItem(list))
-            thing[index][3] = thing[index][3] === 'High' ? 'Low' : 'High'
-            localStorage.setItem(list, JSON.stringify(thing))
-            Ui.display()
-          })
-        }
+        itemHandling(item[4], descCtn, properties, pri, index, desc, list)
 
         ctn.appendChild(properties)
 
